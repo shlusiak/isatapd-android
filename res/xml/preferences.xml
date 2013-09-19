@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:key="first_preferencescreen" >
+
+    <PreferenceCategory android:title="Configuration" >
+		<CheckBoxPreference
+		    android:summary="Run the ISATAP client"
+		    android:title="Enable ISATAP"
+		    android:key="enabled"
+		    android:defaultValue="false" />
+		
+	    <EditTextPreference
+	        android:summary="List of routers"
+	        android:title="Potential routers"
+	        android:key="routers" 
+	        android:defaultValue="" />
+		
+	    <PreferenceScreen 
+	        android:title="Advanced">
+	        
+	        
+	    </PreferenceScreen>
+		
+	</PreferenceCategory>
+	
+    <PreferenceCategory
+        android:title="Status" >
+        
+        
+    </PreferenceCategory>
+</PreferenceScreen>

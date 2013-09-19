@@ -6,7 +6,9 @@
 
     <uses-sdk
         android:minSdkVersion="17"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="18" />
+    
+    <uses-permission android:name="android.permission.ACCESS_SUPERUSER"/>
 
     <application
         android:allowBackup="true"
