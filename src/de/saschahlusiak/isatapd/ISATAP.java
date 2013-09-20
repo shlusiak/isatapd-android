@@ -1,12 +1,15 @@
 package de.saschahlusiak.isatapd;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 import android.content.Context;
+import android.util.Log;
 
 public class ISATAP {
 
@@ -16,10 +19,9 @@ public class ISATAP {
 	public static boolean start_isatapd(
 			Context context,
 			String if_name,				/* default: is0 */
-			String link, 				/* default: auto */
 			int mtu, 					/* default: auto */
 			int ttl,					/* TTL_DEFAULT */
-			int pmtudisc,				/* default: true */
+			boolean pmtudisc,			/* default: true */
 			String routers[],			/* default: isatap */
 			int rs_interval,			/* default: auto */
 			int dns_recheck_interval	/* DNS_CHECK_DEFAULT */
@@ -34,6 +36,8 @@ public class ISATAP {
 			CMD += " --check-dns " + dns_recheck_interval;
 			CMD += " --pid " + new File(context.getCacheDir(), "isatapd.pid").getAbsolutePath();
 			CMD += " --daemon";
+			if (!pmtudisc)
+				CMD += " --nopmtudisc";
 			
 			if (mtu > 0)
 				CMD += " --mtu " + mtu;
@@ -43,7 +47,17 @@ public class ISATAP {
 			for (int i = 0; i < routers.length; i++)
 				CMD += " " + routers[i];
 			
-			Runtime.getRuntime().exec(new String[] {"su", "-c", CMD} ).waitFor();
+			Process p = Runtime.getRuntime().exec(new String[] {"su", "-c", CMD} );
+			BufferedReader e = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+			p.waitFor();
+			String error = "", s;
+			s = e.readLine();
+			while (s != null) {
+				error += s + "\n";
+				s = e.readLine();
+			}
+			if (p.exitValue() != 0)
+				throw new IllegalStateException(error);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {

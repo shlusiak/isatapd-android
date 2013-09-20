@@ -2,30 +2,70 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:key="first_preferencescreen" >
 
-    <PreferenceCategory android:title="Configuration" >
-		<CheckBoxPreference
+    <PreferenceCategory android:title="Settings" >
+		<SwitchPreference
 		    android:summary="Run the ISATAP client"
 		    android:title="Enable ISATAP"
 		    android:key="enabled"
 		    android:defaultValue="false" />
-		
+
 	    <EditTextPreference
-	        android:summary="List of routers"
-	        android:title="Potential routers"
+	        android:summary="List of potential routers"
+	        android:title="ISATAP routers"
 	        android:key="routers" 
 	        android:defaultValue="" />
 		
 	    <PreferenceScreen 
-	        android:title="Advanced">
+	        android:title="Advanced" 
+	        android:summary="Advanced settings">
 	        
-	        
+		    <EditTextPreference
+		        android:summary="Name of the ISATAP interface"
+		        android:title="Interface"
+		        android:key="interface" 
+		        android:defaultValue="is0" />
+
+		    <EditTextPreference
+		        android:summary="MTU"
+		        android:title="MTU"
+		        android:key="mtu" 
+		        android:defaultValue="1280" />
+
+		    <EditTextPreference
+		        android:summary="TTL"
+		        android:title="TTL"
+		        android:key="ttl" 
+		        android:defaultValue="64" />
+
+		    <CheckBoxPreference
+		        android:summary="IPv4 Path MTU Discovery"
+		        android:title="PMTUDISC"
+		        android:key="pmtudisc" 
+		        android:defaultValue="true" />
+
+		    <EditTextPreference
+		        android:summary="RS Interval"
+		        android:title="RS Interval"
+		        android:key="rsinterval" 
+		        android:defaultValue="0" />
+
+		    <EditTextPreference
+		        android:summary="DNS Interval"
+		        android:title="DNS Interval"
+		        android:key="checkdns" 
+		        android:defaultValue="3600" />		    	        
 	    </PreferenceScreen>
-		
 	</PreferenceCategory>
 	
     <PreferenceCategory
-        android:title="Status" >
-        
+        android:title="Status"
+        android:key="status_title" >
+	    
+        <PreferenceScreen
+            android:title="Status"
+            android:summary="Status"
+            android:key="status"
+            android:enabled="false" />
         
     </PreferenceCategory>
 </PreferenceScreen>

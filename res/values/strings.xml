@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">isatapd</string>
 
+    <string name="status_title">Interface %1$s</string>
+    <string name="interface_not_found">Inactive</string>
+    <string name="interface_connecting">Connecting</string>
+    <string name="interface_connected">Connected</string>
+    <string name="interface_error">Error getting interface information</string>
 </resources>
