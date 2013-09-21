@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:key="first_preferencescreen" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <PreferenceCategory android:title="Settings" >
 		<SwitchPreference
@@ -62,10 +61,31 @@
         android:key="status_title" >
 	    
         <PreferenceScreen
-            android:title="Status"
-            android:summary="Status"
-            android:key="status"
-            android:enabled="false" />
-        
+            android:title="@string/status"
+            android:summary="@string/interface_not_found"
+            android:key="status_pref" >
+		    
+	        <PreferenceScreen
+	            android:title="@string/status_interface"
+	            android:key="status_interface"
+	            android:enabled="false" />
+	        
+	        <PreferenceScreen
+	            android:title="Link-local address"
+	            android:key="status_ll"
+	            android:enabled="false" />
+	        	        
+	        <PreferenceScreen
+	            android:title="Global address"
+	            android:key="status_global"
+	            android:enabled="false" />
+	        	        
+            <PreferenceScreen
+	            android:title="MTU"
+	            android:key="status_mtu"
+	            android:enabled="false" />
+
+        </PreferenceScreen>
+
     </PreferenceCategory>
 </PreferenceScreen>

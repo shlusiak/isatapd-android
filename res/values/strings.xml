@@ -3,8 +3,12 @@
     <string name="app_name">isatapd</string>
 
     <string name="status_title">Interface %1$s</string>
+    <string name="status">Status</string>
+    <string name="status_interface">Interface</string>
     <string name="interface_not_found">Inactive</string>
-    <string name="interface_connecting">Connecting</string>
-    <string name="interface_connected">Connected</string>
+    <string name="interface_connecting">Connecting: %1$s</string>
+    <string name="interface_connected">Connected: %1$s</string>
     <string name="interface_error">Error getting interface information</string>
+    <string name="mtu_format">%1$d byte</string>
+    <string name="unknown">Unknown</string>
 </resources>

@@ -16,6 +16,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.widget.BaseAdapter;
 
 public class IsatapPreferencesActivity extends PreferenceActivity {
 	
@@ -36,6 +37,11 @@ public class IsatapPreferencesActivity extends PreferenceActivity {
 			}
 		});
 		
+		updateStatus();
+	}
+	
+	@Override
+	protected void onResume() {
 		Runnable runUpdateStatus = new Runnable() {
 			@Override
 			public void run() {
@@ -43,8 +49,8 @@ public class IsatapPreferencesActivity extends PreferenceActivity {
 				handler.postDelayed(this, 2000);
 			}
 		};
-		updateStatus();
 		handler.postDelayed(runUpdateStatus, 100);
+		super.onResume();
 	}
 	
 	boolean toggleEnabled(boolean enabled) {
@@ -88,22 +94,30 @@ public class IsatapPreferencesActivity extends PreferenceActivity {
 	}	
 	
 	void updateStatus() {
-		PreferenceScreen ps = (PreferenceScreen)findPreference("status");
+		PreferenceScreen ps = (PreferenceScreen)findPreference("status_pref");
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		String ifname = prefs.getString("interface", "is0");
 		
 		findPreference("status_title").setTitle(getString(R.string.status_title, ifname));
-		ps.setTitle(R.string.interface_not_found);
-		ps.setSummary("");
+		ps.setSummary(R.string.interface_not_found);
+//		ps.setEnabled(false);
+		findPreference("status_mtu").setSummary(R.string.unknown);
+		findPreference("status_interface").setSummary(ifname);
+		findPreference("status_ll").setSummary(R.string.unknown);
+		findPreference("status_global").setSummary(R.string.unknown);
 		
 		/* TODO: support for listing multiple IPv6 addresses on the same ISATAP interface */
-		/* TODO: show MTU? */
 		try {
 			NetworkInterface i = NetworkInterface.getByName(ifname);
 			if (i != null) {
-				ps.setTitle(R.string.interface_connecting);
+//				ps.setEnabled(true);
+				findPreference("status_mtu").setSummary(getString(R.string.mtu_format, i.getMTU()));
+				ps.setSummary(R.string.unknown);
+				findPreference("status_ll").setSummary(R.string.unknown);
+				findPreference("status_global").setSummary(R.string.unknown);
 				Enumeration<InetAddress> addresses = i.getInetAddresses();
+				boolean global = false;
 				while (addresses.hasMoreElements()) {
 					InetAddress addr = addresses.nextElement();
 					if (addr.isAnyLocalAddress())
@@ -115,17 +129,21 @@ public class IsatapPreferencesActivity extends PreferenceActivity {
 					String s = addr.getHostAddress();
 					if (s.contains("%"))
 						s = s.substring(0, s.indexOf("%"));
-					ps.setSummary(s);
-					if (!addr.isLinkLocalAddress()) {
-						ps.setTitle(R.string.interface_connected);
-						break;
+					if (addr.isLinkLocalAddress()) {
+						findPreference("status_ll").setSummary(s);
+						if (!global)
+							ps.setSummary(getString(R.string.interface_connecting, s));
+					} else {
+						global = true;
+						findPreference("status_global").setSummary(s);
+						ps.setSummary(getString(R.string.interface_connected, s));
 					}
 				}
 			}
 		} catch (SocketException e) {
 			e.printStackTrace();
-			ps.setTitle(R.string.interface_not_found);
 			ps.setSummary(R.string.interface_error);
-		}		
+		}
+		((BaseAdapter)getPreferenceScreen().getRootAdapter()).notifyDataSetChanged();
 	}
 }
