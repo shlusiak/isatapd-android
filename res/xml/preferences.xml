@@ -20,37 +20,33 @@
 	        
 		    <EditTextPreference
 		        android:summary="Name of the ISATAP interface"
-		        android:title="Interface"
+		        android:title="Interface name"
 		        android:key="interface" 
 		        android:defaultValue="is0" />
 
 		    <EditTextPreference
-		        android:summary="MTU"
-		        android:title="MTU"
+		        android:title="Maximum transfer unit (MTU)"
 		        android:key="mtu" 
 		        android:defaultValue="1280" />
 
 		    <EditTextPreference
-		        android:summary="TTL"
-		        android:title="TTL"
+		        android:title="Time to live (TTL)"
 		        android:key="ttl" 
 		        android:defaultValue="64" />
 
 		    <CheckBoxPreference
 		        android:summary="IPv4 Path MTU Discovery"
-		        android:title="PMTUDISC"
+		        android:title="MTU Discovery"
 		        android:key="pmtudisc" 
 		        android:defaultValue="true" />
 
 		    <EditTextPreference
-		        android:summary="RS Interval"
-		        android:title="RS Interval"
+		        android:title="Router solicitation interval"
 		        android:key="rsinterval" 
 		        android:defaultValue="0" />
 
 		    <EditTextPreference
-		        android:summary="DNS Interval"
-		        android:title="DNS Interval"
+		        android:title="DNS interval"
 		        android:key="checkdns" 
 		        android:defaultValue="3600" />		    	        
 	    </PreferenceScreen>

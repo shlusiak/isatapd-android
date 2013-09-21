@@ -9,16 +9,20 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.widget.BaseAdapter;
+import android.widget.Toast;
 
-public class IsatapPreferencesActivity extends PreferenceActivity {
+public class IsatapPreferencesActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 	
 	Handler handler = new Handler();
 	
@@ -50,7 +54,24 @@ public class IsatapPreferencesActivity extends PreferenceActivity {
 			}
 		};
 		handler.postDelayed(runUpdateStatus, 100);
+		
+		SharedPreferences prefs = getPreferenceScreen().getSharedPreferences();
+		onSharedPreferenceChanged(prefs, "routers");
+		onSharedPreferenceChanged(prefs, "interface");
+		onSharedPreferenceChanged(prefs, "mtu");
+		onSharedPreferenceChanged(prefs, "ttl");
+		onSharedPreferenceChanged(prefs, "rsinterval");
+		onSharedPreferenceChanged(prefs, "checkdns");
+
+		prefs.registerOnSharedPreferenceChangeListener(this);
+		
 		super.onResume();
+	}
+	
+	@Override
+	protected void onPause() {
+		getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+		super.onPause();
 	}
 	
 	boolean toggleEnabled(boolean enabled) {
@@ -101,7 +122,7 @@ public class IsatapPreferencesActivity extends PreferenceActivity {
 		
 		findPreference("status_title").setTitle(getString(R.string.status_title, ifname));
 		ps.setSummary(R.string.interface_not_found);
-//		ps.setEnabled(false);
+		ps.setEnabled(false);
 		findPreference("status_mtu").setSummary(R.string.unknown);
 		findPreference("status_interface").setSummary(ifname);
 		findPreference("status_ll").setSummary(R.string.unknown);
@@ -111,7 +132,7 @@ public class IsatapPreferencesActivity extends PreferenceActivity {
 		try {
 			NetworkInterface i = NetworkInterface.getByName(ifname);
 			if (i != null) {
-//				ps.setEnabled(true);
+				ps.setEnabled(true);
 				findPreference("status_mtu").setSummary(getString(R.string.mtu_format, i.getMTU()));
 				ps.setSummary(R.string.unknown);
 				findPreference("status_ll").setSummary(R.string.unknown);
@@ -145,5 +166,19 @@ public class IsatapPreferencesActivity extends PreferenceActivity {
 			ps.setSummary(R.string.interface_error);
 		}
 		((BaseAdapter)getPreferenceScreen().getRootAdapter()).notifyDataSetChanged();
+	}
+
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+		if (key.equals("routers") ||
+			key.equals("interface") ||
+			key.equals("ttl") ||
+			key.equals("mtu") ||
+			key.equals("rsinterval") ||
+			key.equals("checkdns"))
+		{
+			EditTextPreference pref = (EditTextPreference)findPreference(key);
+			pref.setSummary(pref.getText());
+		}
 	}
 }
