@@ -33,7 +33,10 @@ public class ISATAP {
 			CMD += new File(context.getCacheDir(), "isatapd").getAbsolutePath();
 			if (! if_name.equals(""))
 				CMD += " --name " + if_name;
-			CMD += " --ttl " + ttl;
+			if (ttl > 0)
+				CMD += " --ttl " + ttl;
+			else
+				CMD += " --ttl inherit";
 			CMD += " --check-dns " + dns_recheck_interval;
 			CMD += " --pid " + new File(context.getCacheDir(), "isatapd.pid").getAbsolutePath();
 			CMD += " --daemon";
@@ -42,7 +45,6 @@ public class ISATAP {
 			
 			if (mtu > 0)
 				CMD += " --mtu " + mtu;
-			CMD += " --ttl " + ttl;
 			if (rs_interval > 0)
 				CMD += " --interval " + rs_interval;
 			for (int i = 0; i < routers.length; i++)
