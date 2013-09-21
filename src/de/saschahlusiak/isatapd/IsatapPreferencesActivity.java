@@ -78,16 +78,24 @@ public class IsatapPreferencesActivity extends PreferenceActivity implements OnS
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String routers[] = { prefs.getString("routers", "") };
 		try {
-			if (enabled)
+			if (enabled) {
+				int mtu = 0;
+				int ttl = 0;
+				int rsinterval = 0;
+				int checkdns = 0;
+				try { mtu = Integer.parseInt(prefs.getString("mtu", "1280")); } catch (Exception e) {}
+				try { ttl = Integer.parseInt(prefs.getString("ttl", "64")); } catch (Exception e) {}
+				try { rsinterval = Integer.parseInt(prefs.getString("rsinterval", "0")); } catch (Exception e) {}
+				try { checkdns = Integer.parseInt(prefs.getString("checkdns", "3600")); } catch (Exception e) {}
 				ISATAP.start_isatapd(this,
 						prefs.getString("interface", "is0"),
-						Integer.parseInt(prefs.getString("mtu", "1280")),
-						Integer.parseInt(prefs.getString("ttl", "64")),
+						mtu,
+						ttl,
 						prefs.getBoolean("pmtudisc", true),
 						routers,
-						Integer.parseInt(prefs.getString("rsinterval", "0")),
-						Integer.parseInt(prefs.getString("checkdns", "3600")));
-			else
+						rsinterval,
+						checkdns);
+			} else
 				ISATAP.stop_isatapd(this);
 		} catch (IllegalStateException e) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -119,6 +127,8 @@ public class IsatapPreferencesActivity extends PreferenceActivity implements OnS
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
 		String ifname = prefs.getString("interface", "is0");
+		if (ifname.equals(""))
+			ifname = "is0";
 		
 		findPreference("status_title").setTitle(getString(R.string.status_title, ifname));
 		ps.setSummary(R.string.interface_not_found);
@@ -178,7 +188,10 @@ public class IsatapPreferencesActivity extends PreferenceActivity implements OnS
 			key.equals("checkdns"))
 		{
 			EditTextPreference pref = (EditTextPreference)findPreference(key);
-			pref.setSummary(pref.getText());
+			if (pref.getText().equals("0") || pref.getText().equals(""))
+				pref.setSummary(R.string.auto);
+			else
+				pref.setSummary(pref.getText());
 		}
 	}
 }

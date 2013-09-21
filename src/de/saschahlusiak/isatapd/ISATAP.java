@@ -31,7 +31,8 @@ public class ISATAP {
 			String CMD = "";
 			
 			CMD += new File(context.getCacheDir(), "isatapd").getAbsolutePath();
-			CMD += " --name " + if_name;
+			if (! if_name.equals(""))
+				CMD += " --name " + if_name;
 			CMD += " --ttl " + ttl;
 			CMD += " --check-dns " + dns_recheck_interval;
 			CMD += " --pid " + new File(context.getCacheDir(), "isatapd.pid").getAbsolutePath();

@@ -11,4 +11,5 @@
     <string name="interface_error">Error getting interface information</string>
     <string name="mtu_format">%1$d byte</string>
     <string name="unknown">Unknown</string>
+    <string name="auto">auto</string>
 </resources>
