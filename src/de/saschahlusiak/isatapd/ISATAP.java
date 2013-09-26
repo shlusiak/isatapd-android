@@ -9,6 +9,8 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class ISATAP {
@@ -70,6 +72,28 @@ public class ISATAP {
 		return true;
 	}
 	
+	public static boolean start_isatapd(Context context) {
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		
+		String routers[] = { prefs.getString("routers", "") };
+		int mtu = 0;
+		int ttl = 0;
+		int rsinterval = 0;
+		int checkdns = 0;
+		try { mtu = Integer.parseInt(prefs.getString("mtu", "1280")); } catch (Exception e) {}
+		try { ttl = Integer.parseInt(prefs.getString("ttl", "64")); } catch (Exception e) {}
+		try { rsinterval = Integer.parseInt(prefs.getString("rsinterval", "0")); } catch (Exception e) {}
+		try { checkdns = Integer.parseInt(prefs.getString("checkdns", "3600")); } catch (Exception e) {}
+		return ISATAP.start_isatapd(context,
+				prefs.getString("interface", "is0"),
+				mtu,
+				ttl,
+				prefs.getBoolean("pmtudisc", true),
+				routers,
+				rsinterval,
+				checkdns);
+	}
+	
 	public static boolean stop_isatapd(Context context) {
 		String CMD[] = new String[] {
 				"su", "-c",
@@ -84,9 +108,6 @@ public class ISATAP {
 		return true;
 	}
 
-	static {
-//		System.loadLibrary("isatap");
-	}
 	
 	
 	public static boolean installBinary(Context context) {

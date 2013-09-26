@@ -75,27 +75,10 @@ public class IsatapPreferencesActivity extends PreferenceActivity implements OnS
 	}
 	
 	boolean toggleEnabled(boolean enabled) {
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-		String routers[] = { prefs.getString("routers", "") };
 		try {
-			if (enabled) {
-				int mtu = 0;
-				int ttl = 0;
-				int rsinterval = 0;
-				int checkdns = 0;
-				try { mtu = Integer.parseInt(prefs.getString("mtu", "1280")); } catch (Exception e) {}
-				try { ttl = Integer.parseInt(prefs.getString("ttl", "64")); } catch (Exception e) {}
-				try { rsinterval = Integer.parseInt(prefs.getString("rsinterval", "0")); } catch (Exception e) {}
-				try { checkdns = Integer.parseInt(prefs.getString("checkdns", "3600")); } catch (Exception e) {}
-				ISATAP.start_isatapd(this,
-						prefs.getString("interface", "is0"),
-						mtu,
-						ttl,
-						prefs.getBoolean("pmtudisc", true),
-						routers,
-						rsinterval,
-						checkdns);
-			} else
+			if (enabled)
+				ISATAP.start_isatapd(this);
+			else
 				ISATAP.stop_isatapd(this);
 		} catch (IllegalStateException e) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
