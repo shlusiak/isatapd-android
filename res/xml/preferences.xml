@@ -3,57 +3,55 @@
 
     <PreferenceCategory android:title="Settings" >
 		<SwitchPreference
-		    android:summary="Run the ISATAP client"
-		    android:title="Enable ISATAP"
+		    android:summary="@string/prefs_enabled_summary"
+		    android:title="@string/prefs_enabled"
 		    android:key="enabled"
 		    android:defaultValue="false" />
 
 	    <EditTextPreference
-	        android:summary="List of potential routers"
-	        android:title="ISATAP routers"
+	        android:title="@string/prefs_routers"
 	        android:key="routers" 
 	        android:defaultValue="" />
 		
 	    <PreferenceScreen 
-	        android:title="Advanced" 
-	        android:summary="Advanced settings">
+	        android:title="@string/prefs_advanced" 
+	        android:summary="@string/prefs_advanced_summary">
 	        
 		    <EditTextPreference
-		        android:summary="Name of the ISATAP interface"
-		        android:title="Interface name"
+		        android:title="@string/prefs_interface"
 		        android:key="interface" 
 		        android:defaultValue="is0" />
 
 		    <EditTextPreference
-		        android:title="Maximum transfer unit (MTU)"
+		        android:title="@string/prefs_mtu"
 		        android:key="mtu" 
 		        android:defaultValue="1280" />
 
 		    <EditTextPreference
-		        android:title="Time to live (TTL)"
+		        android:title="@string/prefs_ttl"
 		        android:key="ttl" 
 		        android:defaultValue="64" />
 
 		    <CheckBoxPreference
-		        android:summary="IPv4 Path MTU Discovery"
-		        android:title="MTU Discovery"
+		        android:summary="@string/prefs_pmtu_summary"
+		        android:title="@string/prefs_pmtu"
 		        android:key="pmtudisc" 
 		        android:defaultValue="true" />
 
 		    <EditTextPreference
-		        android:title="Router solicitation interval"
+		        android:title="@string/prefs_rsinterval"
 		        android:key="rsinterval" 
 		        android:defaultValue="0" />
 
 		    <EditTextPreference
-		        android:title="DNS interval"
+		        android:title="@string/prefs_checkdns"
 		        android:key="checkdns" 
 		        android:defaultValue="3600" />		    	        
 	    </PreferenceScreen>
 	</PreferenceCategory>
 	
     <PreferenceCategory
-        android:title="Status"
+        android:title="@string/status"
         android:key="status_title" >
 	    
         <PreferenceScreen
@@ -67,17 +65,17 @@
 	            android:enabled="false" />
 	        
 	        <PreferenceScreen
-	            android:title="Link-local address"
+	            android:title="@string/status_linklocal_addresses"
 	            android:key="status_ll"
 	            android:enabled="false" />
 	        	        
 	        <PreferenceScreen
-	            android:title="Global address"
+	            android:title="@string/status_global_addresses"
 	            android:key="status_global"
 	            android:enabled="false" />
 	        	        
             <PreferenceScreen
-	            android:title="MTU"
+	            android:title="@string/status_mtu"
 	            android:key="status_mtu"
 	            android:enabled="false" />
 
