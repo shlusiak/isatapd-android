@@ -12,6 +12,7 @@ public class BootCompletedReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		/* TODO: enable/disable ConnectionChangeReceiver based on enabled */
 		if (prefs.getBoolean("enabled", false)) {
 			Log.d("BootCompletedReceiver", "boot completed, isatapd enabled, starting");
 			ISATAP.start_isatapd(context);
