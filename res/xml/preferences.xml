@@ -10,6 +10,7 @@
 
 	    <EditTextPreference
 	        android:title="@string/prefs_routers"
+	        android:dialogTitle="@string/prefs_routers_title"
 	        android:key="routers" 
 	        android:defaultValue="" />
 		

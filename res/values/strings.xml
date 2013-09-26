@@ -8,6 +8,7 @@
     <string name="prefs_enabled">Enable</string>
     <string name="prefs_enabled_summary">Run the ISATAP client daemon</string>
     <string name="prefs_routers">ISATAP routers</string>
+    <string name="prefs_routers_title">List of potential routers</string>
     <string name="prefs_advanced">Advanced</string>
     <string name="prefs_advanced_summary">Advanced settings</string>
     <string name="prefs_interface">Interface name</string>
