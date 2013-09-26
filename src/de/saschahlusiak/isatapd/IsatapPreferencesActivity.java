@@ -15,12 +15,11 @@ import android.os.Handler;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
+import android.preference.SwitchPreference;
 import android.widget.BaseAdapter;
-import android.widget.Toast;
 
 public class IsatapPreferencesActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 	
@@ -42,6 +41,8 @@ public class IsatapPreferencesActivity extends PreferenceActivity implements OnS
 		});
 		
 		updateStatus();
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		updateEnabledPreferences(prefs.getBoolean("enabled", false));
 	}
 	
 	@Override
@@ -101,9 +102,20 @@ public class IsatapPreferencesActivity extends PreferenceActivity implements OnS
 			}
 		};
 		handler.postDelayed(runUpdateStatus, 300);
-
+		updateEnabledPreferences(enabled);
+		
 		return true;
-	}	
+	}
+	
+	void updateEnabledPreferences(boolean enabled) {		
+		findPreference("routers").setEnabled(!enabled);
+		findPreference("interface").setEnabled(!enabled);
+		findPreference("mtu").setEnabled(!enabled);
+		findPreference("ttl").setEnabled(!enabled);
+		findPreference("pmtudisc").setEnabled(!enabled);
+		findPreference("rsinterval").setEnabled(!enabled);
+		findPreference("checkdns").setEnabled(!enabled);
+	}
 	
 	void updateStatus() {
 		PreferenceScreen ps = (PreferenceScreen)findPreference("status_pref");
