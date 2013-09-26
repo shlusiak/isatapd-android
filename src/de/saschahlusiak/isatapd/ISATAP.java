@@ -108,7 +108,19 @@ public class ISATAP {
 		return true;
 	}
 
-	
+	public static boolean send_hup(Context context) {
+		String CMD[] = new String[] {
+				"su", "-c",
+				"kill -HUP `cat " + new File(context.getCacheDir(), "isatapd.pid").getAbsolutePath() + "`" }; 
+		try {
+			Runtime.getRuntime().exec(CMD).waitFor();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
 	
 	public static boolean installBinary(Context context) {
 		File outFile = new File(context.getCacheDir(), "isatapd");
