@@ -1,84 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="Settings" >
-		<SwitchPreference
-		    android:summary="@string/prefs_enabled_summary"
-		    android:title="@string/prefs_enabled"
-		    android:key="enabled"
-		    android:defaultValue="false" />
+    <PreferenceCategory android:title="Settings">
+        <SwitchPreference
+                android:summary="@string/prefs_enabled_summary"
+                android:title="@string/prefs_enabled"
+                android:key="enabled"
+                android:defaultValue="false"/>
 
-	    <EditTextPreference
-	        android:title="@string/prefs_routers"
-	        android:dialogTitle="@string/prefs_routers_title"
-	        android:key="routers" 
-	        android:defaultValue="" />
-		
-	    <PreferenceScreen 
-	        android:title="@string/prefs_advanced" 
-	        android:summary="@string/prefs_advanced_summary">
-	        
-		    <EditTextPreference
-		        android:title="@string/prefs_interface"
-		        android:key="interface" 
-		        android:defaultValue="is0" />
+        <EditTextPreference
+                android:title="@string/prefs_routers"
+                android:dialogTitle="@string/prefs_routers_title"
+                android:key="routers"
+                android:defaultValue=""/>
 
-		    <EditTextPreference
-		        android:title="@string/prefs_mtu"
-		        android:key="mtu" 
-		        android:defaultValue="1280" />
-
-		    <EditTextPreference
-		        android:title="@string/prefs_ttl"
-		        android:key="ttl" 
-		        android:defaultValue="64" />
-
-		    <CheckBoxPreference
-		        android:summary="@string/prefs_pmtu_summary"
-		        android:title="@string/prefs_pmtu"
-		        android:key="pmtudisc" 
-		        android:defaultValue="true" />
-
-		    <EditTextPreference
-		        android:title="@string/prefs_rsinterval"
-		        android:key="rsinterval" 
-		        android:defaultValue="0" />
-
-		    <EditTextPreference
-		        android:title="@string/prefs_checkdns"
-		        android:key="checkdns" 
-		        android:defaultValue="3600" />		    	        
-	    </PreferenceScreen>
-	</PreferenceCategory>
-	
-    <PreferenceCategory
-        android:title="@string/status"
-        android:key="status_title" >
-	    
         <PreferenceScreen
+                android:title="@string/prefs_advanced"
+                android:summary="@string/prefs_advanced_summary">
+
+            <EditTextPreference
+                    android:title="@string/prefs_interface"
+                    android:key="interface"
+                    android:defaultValue="is0"/>
+
+            <EditTextPreference
+                    android:title="@string/prefs_mtu"
+                    android:key="mtu"
+                    android:defaultValue="1280"/>
+
+            <EditTextPreference
+                    android:title="@string/prefs_ttl"
+                    android:key="ttl"
+                    android:defaultValue="64"/>
+
+            <CheckBoxPreference
+                    android:summary="@string/prefs_pmtu_summary"
+                    android:title="@string/prefs_pmtu"
+                    android:key="pmtudisc"
+                    android:defaultValue="true"/>
+
+            <EditTextPreference
+                    android:title="@string/prefs_rsinterval"
+                    android:key="rsinterval"
+                    android:defaultValue="0"/>
+
+            <EditTextPreference
+                    android:title="@string/prefs_checkdns"
+                    android:key="checkdns"
+                    android:defaultValue="3600"/>
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+    <PreferenceCategory
             android:title="@string/status"
-            android:summary="@string/interface_not_found"
-            android:key="status_pref" >
-		    
-	        <PreferenceScreen
-	            android:title="@string/status_interface"
-	            android:key="status_interface"
-	            android:enabled="false" />
-	        
-	        <PreferenceScreen
-	            android:title="@string/status_linklocal_addresses"
-	            android:key="status_ll"
-	            android:enabled="false" />
-	        	        
-	        <PreferenceScreen
-	            android:title="@string/status_global_addresses"
-	            android:key="status_global"
-	            android:enabled="false" />
-	        	        
+            android:key="status_title">
+
+        <PreferenceScreen
+                android:title="@string/status"
+                android:summary="@string/interface_not_found"
+                android:key="status_pref">
+
             <PreferenceScreen
-	            android:title="@string/status_mtu"
-	            android:key="status_mtu"
-	            android:enabled="false" />
+                    android:title="@string/status_interface"
+                    android:key="status_interface"
+                    android:enabled="false"/>
+
+            <PreferenceScreen
+                    android:title="@string/status_linklocal_addresses"
+                    android:key="status_ll"
+                    android:enabled="false"/>
+
+            <PreferenceScreen
+                    android:title="@string/status_global_addresses"
+                    android:key="status_global"
+                    android:enabled="false"/>
+
+            <PreferenceScreen
+                    android:title="@string/status_mtu"
+                    android:key="status_mtu"
+                    android:enabled="false"/>
+
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+            android:title="@string/about">
+
+        <PreferenceScreen
+                android:title="@string/github"
+                android:summary="@string/github_url">
+            <intent
+                    android:action="android.intent.action.VIEW"
+                    android:data="@string/github_url"/>
+        </PreferenceScreen>
+
+        <PreferenceScreen
+                android:title="@string/about"
+                android:summary="@string/about_long">
 
         </PreferenceScreen>
 

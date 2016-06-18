@@ -30,5 +30,9 @@
     <string name="mtu_format">%1$d bytes</string>
     <string name="status_global_addresses">Global address</string>
     <string name="status_linklocal_addresses">Link-local address</string>
-    
+
+    <string name="about">About</string>
+    <string name="github">GitHub</string>
+    <string name="github_url">https://github.com/shlusiak/isatapd-android</string>
+    <string name="about_long">Copyright (c) by Sascha Hlusiak 2014-2016.</string>
 </resources>
