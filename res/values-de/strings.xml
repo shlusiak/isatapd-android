@@ -2,36 +2,36 @@
 <resources>
     <string name="app_name">isatapd</string>
 
-    <string name="unknown">Unknown</string>
+    <string name="unknown">Unbekannt</string>
     <string name="auto">auto</string>
     
-    <string name="prefs_enabled">Enable</string>
-    <string name="prefs_enabled_summary">Run the ISATAP client daemon</string>
-    <string name="prefs_routers">ISATAP routers</string>
-    <string name="prefs_routers_title">List of potential routers</string>
-    <string name="prefs_advanced">Advanced</string>
-    <string name="prefs_advanced_summary">Advanced settings</string>
-    <string name="prefs_interface">Interface name</string>
+    <string name="prefs_enabled">Aktiv</string>
+    <string name="prefs_enabled_summary">ISATAP client daemon starten</string>
+    <string name="prefs_routers">ISATAP router</string>
+    <string name="prefs_routers_title">Liste potentieller Router</string>
+    <string name="prefs_advanced">Erweitert</string>
+    <string name="prefs_advanced_summary">Erweiterte Einstellungen</string>
+    <string name="prefs_interface">Schnittstellen Name</string>
     <string name="prefs_mtu">Maximum transfer unit (MTU)</string>
     <string name="prefs_ttl">Time to live (TTL)</string>
     <string name="prefs_pmtu">Path MTU discovery</string>
     <string name="prefs_pmtu_summary">IPv4 path MTU discovery</string>
-    <string name="prefs_rsinterval">Router solicitation interval</string>
-    <string name="prefs_checkdns">DNS interval</string>
+    <string name="prefs_rsinterval">Router solicitation Intervall</string>
+    <string name="prefs_checkdns">DNS Intervall</string>
     
     <string name="status">Status</string>
-    <string name="status_title">Interface %1$s</string>
-    <string name="status_interface">Interface</string>
-    <string name="interface_not_found">Inactive</string>
-    <string name="interface_connecting">Connecting: %1$s</string>
-    <string name="interface_connected">Connected: %1$s</string>
-    <string name="interface_error">Error getting interface information</string>
+    <string name="status_title">Schnittstelle %1$s</string>
+    <string name="status_interface">Schnittstelle</string>
+    <string name="interface_not_found">Inaktiv</string>
+    <string name="interface_connecting">Verbinden: %1$s</string>
+    <string name="interface_connected">Verbunden: %1$s</string>
+    <string name="interface_error">Kann Schnittstelleninformation nicht abrufen</string>
     <string name="status_mtu">MTU</string>
-    <string name="mtu_format">%1$d bytes</string>
-    <string name="status_global_addresses">Global address</string>
-    <string name="status_linklocal_addresses">Link-local address</string>
+    <string name="mtu_format">%1$d Byte</string>
+    <string name="status_global_addresses">Globale Adresse</string>
+    <string name="status_linklocal_addresses">Link-lokale Adresse</string>
 
-    <string name="about">About</string>
+    <string name="about">Über</string>
     <string name="github">GitHub</string>
     <string name="github_url">https://github.com/shlusiak/isatapd-android</string>
     <string name="about_long">Copyright (c) by Sascha Hlusiak 2014-2016.</string>
