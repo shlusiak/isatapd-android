@@ -2,3 +2,6 @@
 /bin
 /gen
 /obj
+/.idea/
+/.gradle/
+/build/
