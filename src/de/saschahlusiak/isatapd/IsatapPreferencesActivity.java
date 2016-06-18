@@ -18,17 +18,18 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
-import android.preference.SwitchPreference;
 import android.widget.BaseAdapter;
 
 public class IsatapPreferencesActivity extends PreferenceActivity implements OnSharedPreferenceChangeListener {
 	
-	Handler handler = new Handler();
+	private Handler handler;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
+		handler = new Handler();
+
 		addPreferencesFromResource(R.xml.preferences);
 		
 		ISATAP.installBinary(this);
@@ -44,16 +45,25 @@ public class IsatapPreferencesActivity extends PreferenceActivity implements OnS
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		updateEnabledPreferences(prefs.getBoolean("enabled", false));
 	}
-	
+
+	@Override
+	protected void onDestroy() {
+		handler = null;
+		super.onDestroy();
+	}
+
+	private final Runnable runUpdateStatus = new Runnable() {
+		@Override
+		public void run() {
+			if (handler == null)
+				return;
+			updateStatus();
+			handler.postDelayed(this, 2000);
+		}
+	};
+
 	@Override
 	protected void onResume() {
-		Runnable runUpdateStatus = new Runnable() {
-			@Override
-			public void run() {
-				updateStatus();
-				handler.postDelayed(this, 2000);
-			}
-		};
 		handler.postDelayed(runUpdateStatus, 100);
 		
 		SharedPreferences prefs = getPreferenceScreen().getSharedPreferences();
@@ -72,10 +82,11 @@ public class IsatapPreferencesActivity extends PreferenceActivity implements OnS
 	@Override
 	protected void onPause() {
 		getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+		handler.removeCallbacks(runUpdateStatus);
 		super.onPause();
 	}
 	
-	boolean toggleEnabled(boolean enabled) {
+	private boolean toggleEnabled(boolean enabled) {
 		/* TODO: enable/disable ConnectionChangeReceiver based on enabled */
 		try {
 			if (enabled)
@@ -108,7 +119,7 @@ public class IsatapPreferencesActivity extends PreferenceActivity implements OnS
 		return true;
 	}
 	
-	void updateEnabledPreferences(boolean enabled) {		
+	private void updateEnabledPreferences(boolean enabled) {
 		findPreference("routers").setEnabled(!enabled);
 		findPreference("interface").setEnabled(!enabled);
 		findPreference("mtu").setEnabled(!enabled);
@@ -118,7 +129,7 @@ public class IsatapPreferencesActivity extends PreferenceActivity implements OnS
 		findPreference("checkdns").setEnabled(!enabled);
 	}
 	
-	void updateStatus() {
+	private void updateStatus() {
 		PreferenceScreen ps = (PreferenceScreen)findPreference("status_pref");
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		
