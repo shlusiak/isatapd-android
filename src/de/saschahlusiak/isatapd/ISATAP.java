@@ -8,7 +8,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -64,6 +66,18 @@ public class ISATAP {
 				throw new IllegalStateException(error);
 		} catch (IOException e) {
 			e.printStackTrace();
+			new AlertDialog.Builder(context)
+				.setMessage(e.getMessage())
+				.setTitle("Error starting isatapd")
+				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				})
+				.create()
+				.show();
+			return false;
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}

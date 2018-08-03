@@ -89,9 +89,11 @@ public class IsatapPreferencesActivity extends PreferenceActivity implements OnS
 	private boolean toggleEnabled(boolean enabled) {
 		/* TODO: enable/disable ConnectionChangeReceiver based on enabled */
 		try {
-			if (enabled)
-				ISATAP.start_isatapd(this);
-			else
+			if (enabled) {
+				if (!ISATAP.start_isatapd(this)) {
+					return false;
+				}
+			} else
 				ISATAP.stop_isatapd(this);
 		} catch (IllegalStateException e) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
